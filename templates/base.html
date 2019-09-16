@@ -11,14 +11,21 @@
 
 <header>
     <nav>
-        <a href="/"><img src="logo.png" alt="Fish Shop"></a>
-        <a href="/search/">Search</a>
-        <a href="/about/">About</a>
-        <!-- fare in modo che se l'utente è loggato il bottone diventa per il logout e mettere il nome utente nella nav bar
-        il nome utente deve essere visibile solo se l'utente è loggato e deve portare alla sua pagina profilo dove ha le generalità e può aggiungersi soldi
-        -->
-        <a href="/login/">Sign In</a>
-        <a href="/registration/">Sign Up</a>
+        <div class="navigation">
+            <a href="/"><img src="/static/images/logo.png" alt="Fish Shop"></a>
+            <a href="/search/">Search</a>
+            <a href="/about/">About</a>
+        </div>
+
+        <div class="userinfo">
+            <a href="/registration/">Sign Up</a>
+            <a href="/login/">Sign In</a>
+
+            <!-- fare in modo che:
+             -quando l'utente si logga, il bottone di login diventa il nome dell'utente ed è un link alla sua pagina profilo (dove vede informazioni e può aggiungersi i soldi)
+             -quando utente loggato, il suo nome (oltre che bottone) è un menu a tendina per scollegare l'utente
+            -->
+        </div>
     </nav>
 </header>
 

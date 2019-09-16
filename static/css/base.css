@@ -1,3 +1,11 @@
 h1 {
     background: aqua;
 }
+
+nav {
+    background: chartreuse;
+}
+
+div.userinfo {
+    align-content: end;
+}
