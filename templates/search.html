@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- mettere qua i nuovi pezzi di header da linkare-->
+{% endblock %}
+
+{% block body %}
+    <form method="Post" action="/">
+        <label for="search_text">Search: </label>
+        <input type="text" name="search_text" id="search_text" placeholder="Search...">
+
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}

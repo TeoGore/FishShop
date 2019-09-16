@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fish Shop - {{ title }}</title>
+</head>
+<body>
+    <h1>Fish Shop</h1>
+<!-- Mettere
+    <header></header>
+    <footer></footer>
+    e gli altri simili
+-->
+    <p>{{ html_content_variable }}</p>
+
+    {% for paragraph in paragraphs %}
+        <p>{{ paragraph }}</p>
+    {% endfor %}
+
+
+
+<!-- gf
+in file1.html
+    {% block nome_blocco %}
+    {% endblock %}
+
+in file2.html
+{% extends "file1.html" %}
+    {% block nome_blocco %}
+    contenuto blocco
+    {% endblock %}
+
+quindi quando apro file1.html mi viene reinderizzato il contenuto di file1 con il blocco che è sostituito con il codice del blocco definito nel file 2
+in pratica posso creare una pagina template con header e footer e blocco body
+e poi creare le N pagine del sito che la estendono, in questo modo lo stile della pagina è sempre lo stesso ma cambia solo il vero contenuto
+
+nel file python allora per ogni funzione route per una pagina devo ritornare render_template("file2.html", altri_parametri)
+
+probabilmente gli import per i css e js vanno fatti nella pagina base
+per funzioni js o stili css che servono solo a una pagina VEDERE SU GOOGLE
+
+    {% if variabile == 'valore' %}
+        contenuto se if vera
+    {% elif var2 == 2 %}
+        contenuto elif
+    {% endif %}
+-->
+
+</body>
+</html>

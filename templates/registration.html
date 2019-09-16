@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- mettere qua i nuovi pezzi di header da linkare-->
+{% endblock %}
+
+{% block body %}
+    <form method="Post" action="/">
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username" placeholder="Username" required>
+
+        <label for="username">Email: </label>
+        <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+
+        <label for="password">Repeat Password: </label>
+        <input type="password" name="password_repeated" id="password_repeated" placeholder="Repeat Password" required>
+
+        <button type="submit">Sign Up</button>
+
+        <!-- mettere:
+        -bottone per resettare i campi
+        -link per il forgot password
+        -JS per scambiare a form di registrazione
+        -->
+    </form>
+{% endblock %}
+

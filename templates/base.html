@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>Fish Shop - {{ page_type }}</title>
+        <link href="/static/css/base.css" type="text/css" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="/"><img src="logo.png" alt="Fish Shop"></a>
+        <a href="/search/">Search</a>
+        <a href="/about/">About</a>
+        <!-- fare in modo che se l'utente è loggato il bottone diventa per il logout e mettere il nome utente nella nav bar
+        il nome utente deve essere visibile solo se l'utente è loggato e deve portare alla sua pagina profilo dove ha le generalità e può aggiungersi soldi
+        -->
+        <a href="/login/">Sign In</a>
+        <a href="/registration/">Sign Up</a>
+    </nav>
+</header>
+
+{% block body %}
+{% endblock %}
+
+<main>
+    <article></article>
+    <section>
+        <h1>contenuto nella pagina di base</h1>
+    </section>
+</main>
+
+<footer>&copy;2019 Matteo Goretti | All rights reserved</footer>
+
+</body>
+</html>
