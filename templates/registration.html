@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-    <form method="Post" action="/">
+    <form method="Post" action="/signup/">
         <label for="username">Username: </label>
         <input type="text" name="username" id="username" placeholder="Username" required>
 
@@ -18,6 +18,8 @@
 
         <label for="password">Repeat Password: </label>
         <input type="password" name="password_repeated" id="password_repeated" placeholder="Repeat Password" required>
+
+        <!-- verificare uguaglianza password con JS-->
 
         <button type="submit">Sign Up</button>
 
