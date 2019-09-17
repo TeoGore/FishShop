@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- mettere qua i nuovi pezzi di header da linkare-->
+{% endblock %}
+
+{% block body %}
+    <div class="error">
+        <h1>Ooops, there is an error in our internal server (500)</h1>
+        <p>{{ error }}</p>
+
+    </div>
+{% endblock %}

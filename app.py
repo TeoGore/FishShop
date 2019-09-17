@@ -1,5 +1,7 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session
 import mysql.connector
+import gc
+
 
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
 
@@ -16,7 +18,11 @@ def fetch_db(query):
     cursor = db.cursor()
     cursor.execute(query)
     results = cursor.fetchall()
+    cursor.close()
     db.close()
+
+    gc.collect() #call garbage collector
+
     return results
 
 def insert_db(query):
@@ -24,8 +30,23 @@ def insert_db(query):
     cursor = db.cursor()
     cursor.execute(query)
     db.commit()
+    cursor.close()
     db.close()
+
+    gc.collect() #call garbage collector
+
     return
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html", page_type='404')
+
+'''
+@app.errorhandler(500)
+def page_not_found(error):
+    return render_template("404.html", page_type='500', error=error)
+'''
+
 
 @app.route("/", methods=['GET','POST'])
 def homepage():
@@ -41,15 +62,23 @@ def signin_page():
         result = fetch_db(query)
         if len(result) > 0:
             user_info = result[0]  # (ID, username, email, password)
+
+
+            '''
+            session['logged_in'] = True
+            session['username'] = user_info[1]
+
+            return redirect(url_for('homepage'))
+            '''
+
+
+
             #TODO decidere cosa aggiungere al dizionario (online_users) per controllare gli utenti collegati alla sessione
             return render_template("home.html", page_type="Home", user_id=user_info[0], username=user_info[1])
         #TODO il template renderizzato è corretto ma la root nell'URL no (vedere come cambairla, serve farlo mantenendo il passaggio dei parametri quindi redirect non va bene)
-        else:
-            # User not found
-            return render_template("login.html", page_type="Sign In")
-    else:
-        # GET request
-        return render_template("login.html", page_type="Sign In")
+
+    #get request or user not found
+    return render_template("login.html", page_type="Sign In")
 
 #TODO CREARE PAGINA DI LOGOUT
 
@@ -62,6 +91,15 @@ def signup_page():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
+
+        #pip install passlib
+        #from passlib.hash import sha256_crypt
+
+        #password = sha256_crypt.encrypt(str(password))
+
+        #from mysql import escape_string as thwart # usate per mitigare le SQLi (non sono sicuro di dove fare la from!)
+
+        # campo_sanitizzato = thwart(campo_di_un_form)
 
         # add user
         query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
@@ -87,5 +125,5 @@ def about_page():
 
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 

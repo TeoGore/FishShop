@@ -44,6 +44,38 @@ per funzioni js o stili css che servono solo a una pagina VEDERE SU GOOGLE
     {% elif var2 == 2 %}
         contenuto elif
     {% endif %}
+
+
+FLASHING MESSAGES
+
+i messaggi flash non vanno passati come elemento a render template (vengono passati in automatico)
+
+in python (app.py)
+from flask import flash
+
+in un metodo per una route:
+messaggio1 = "messaggio1"
+....
+messaggioN = "messaggioN"
+flash(messaggio1)
+...
+flash(messaggioN)
+
+
+in una pagina html:
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+in  partica nella route metto i messaggi da far vedere all'utente
+nell'html prendo i messaggi con with, con IF controllo che ne esista almeno uno, se ne è presente almeno uno (o più) lo mostro con il for
+
+ovviamente posso fare qualcosa di più complesso nel for: potrei mettere un div in modo da dare uno stile differente al messaggio flashato e mettere un bottone cliccabile per far sparire il messaggio!
+
 -->
 
 </body>

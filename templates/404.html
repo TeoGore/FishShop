@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- mettere qua i nuovi pezzi di header da linkare-->
+{% endblock %}
+
+{% block body %}
+    <div class="error">
+        <h1>Ooops, this page doesn't exists! check the URL! (404 - page not found)</h1>
+        <img src="/static/images/404.png">
+    </div>
+{% endblock %}
