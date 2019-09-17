@@ -4,6 +4,7 @@
     {% block head %}
         <meta charset="UTF-8">
         <title>Fish Shop - {{ page_type }}</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <link href="/static/css/base.css" type="text/css" rel="stylesheet">
     {% endblock %}
 </head>
@@ -16,9 +17,12 @@
             <a href="/search/">Search</a>
             <a href="/about/">About</a>
         </div>
-        <!-- TODO mettere la lista a sinistra con i link per la ricerca veloce (filtri)-->
 
-        <!-- TODO mettere icona carrello e wishlist e pagina contatti (da creare) con tutte le mie info e i miei social-->
+
+        <!-- TODO mettere icona carrello e wishlist e pagina contatti (da creare) con tutte le mie info e i miei social
+        la whishlist va nel menu a tendina che compare quando il mouse è sull'utente
+        l'icona per il carrello deve richiedere login se non è ancora stato fatto (usare decorator login required)
+        -->
         <div class="userinfo">
             <a href="/signup/">Sign Up</a>
             <a href="/signin/">Sign In</a>
@@ -31,14 +35,25 @@
     </nav>
 </header>
 
-{% block body %}
-{% endblock %}
+<!-- TODO mettere la lista a sinistra con i link per la ricerca veloce (filtri)-->
+
+<div class="flash_messages">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flashed_message">
+                    {{ message }}
+                    <button type="button" class="close">&times;</button>
+                <!-- magari il bottone mettere solo ID e non classe, comunque deve chiudere i messaggi flashati-->
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
 
 <main>
-    <article></article>
-    <section>
-        <h1>contenuto nella pagina di base</h1>
-    </section>
+    {% block body %}
+    {% endblock %}
 </main>
 
 <footer>&copy;2019 Matteo Goretti | All rights reserved</footer>

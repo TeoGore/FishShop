@@ -1,4 +1,4 @@
---run only to reset the DB
+-- run only to reset the DB
 -- DROP DATABASE FISHSHOP;
 
 CREATE DATABASE IF NOT EXISTS FISHSHOP CHARACTER SET utf32;
@@ -32,13 +32,14 @@ CREATE TABLE FISHES
 	WEIGHT DOUBLE,
 	LENGTH DOUBLE,
 	SEA VARCHAR(50),
-	DESCRIPTION VARCHAR(500) NOT NULL
+	DESCRIPTION VARCHAR(500) NOT NULL,
+	IMAGE_URL VARCHAR(500) NOT NULL
 );
 
-INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION) VALUES ('Tuna', 20.30, 40.7, 10.4, 'Mar Adriatico', 'Bel pesce, ottimo per il sushi e per fare la pasta!');
-INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION) VALUES ('Salmon', 15.65, 50.44, 15.6, 'Mar Tirreno', 'Ottimo pesce per una tartare o un hamburger!');
-INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION) VALUES ('Great White Shark', 143.66, 200.61, 130.7, 'Oceano Atlantico', 'Pesce assassino, sente una goccia di sangue in mezzo a 1.000.000 di gocce di acqua!');
-INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION) VALUES ('Whale', 260.21, 344.12, 300.4, 'Oceano Atlantico', 'Pesce lungo e lento ma non vuoi capitarle vicino, te lo assicuro!');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Tuna', 20.30, 40.7, 10.4, 'Mar Adriatico', 'Bel pesce, ottimo per il sushi e per fare la pasta!', '/static/images/phishes/tuna.jpeg');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Salmon', 15.65, 50.44, 15.6, 'Mar Tirreno', 'Ottimo pesce per una tartare o un hamburger!', '/static/images/phishes/salmon.png');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Great White Shark', 143.66, 200.61, 130.7, 'Oceano Atlantico', 'Pesce assassino, sente una goccia di sangue in mezzo a 1.000.000 di gocce di acqua!', '/static/images/phishes/white_shark.jpeg');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Blue Whale', 260.21, 344.12, 300.4, 'Oceano Atlantico', 'Pesce lungo e lento ma non vuoi capitarle vicino, te lo assicuro!', '/static/images/phishes/blue_whale.jpeg');
 
 CREATE TABLE CART
 (

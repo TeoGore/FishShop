@@ -1,2 +1,2 @@
 # FishShop
-MST Project - shop web app
+MST Project - Shopping Web App

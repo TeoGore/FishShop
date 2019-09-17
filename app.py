@@ -1,17 +1,30 @@
-from flask import Flask, render_template, url_for, request, redirect, session
-import mysql.connector
+from flask import Flask, render_template, url_for, request, redirect, session, flash
+import mysql.connector  # serve installare: mysqlclient e mysql-connector
 import gc
 
 
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
+'''
+Useful queries:
+
+fare con fetch_db():
+query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "' AND PASSWORD = '" + password + "'"
+query = "SELECT * FROM INSERTIONS WHERE TEXT LIKE '%" + to_search + "%' AND USERNAME = '" + username + "'"
+
+fare con insert_db():
+query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
+query = "DELETE FROM INSERTIONS WHERE INS_CODE = '" + code + "'"
+'''
 
 app = Flask(__name__)
 
 online_users = {}
 
+
 def dbconnect():
     return mysql.connector.connect(host="localhost", user='user', passwd='password',
                                    database="FISHSHOP", auth_plugin='mysql_native_password')
+
 
 def fetch_db(query):
     db = dbconnect()
@@ -20,10 +33,10 @@ def fetch_db(query):
     results = cursor.fetchall()
     cursor.close()
     db.close()
-
     gc.collect() #call garbage collector
 
     return results
+
 
 def insert_db(query):
     db = dbconnect()
@@ -32,10 +45,22 @@ def insert_db(query):
     db.commit()
     cursor.close()
     db.close()
-
-    gc.collect() #call garbage collector
-
+    gc.collect()
     return
+
+from functools import wraps
+
+def login_required(route_function):
+    @wraps(route_function)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return route_function(*args, **kwargs)
+        else:
+            flash("You need to login first!")
+            return redirect(url_for('signin'))
+
+    return wrap
+
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -110,18 +135,21 @@ def signup_page():
     return render_template("registration.html", page_type="Sign Up")
 
 
+
+#TODO da fare anche html
 @app.route("/search/", methods=['GET','POST'])
 def search_page():
     return render_template("search.html", page_type="Search")
 
 
+#TODO da fare anche html
 @app.route("/about/", methods=['GET'])
 def about_page():
     return render_template("about.html", page_type="About")
 
 #mettere pagina per mostrare i dettagli del prodotto
 #mettere pagina carrello
-#se voglio fare anche pagina wishlist
+#fare anche pagina wishlist
 
 
 if __name__ == "__main__":
