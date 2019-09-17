@@ -1,7 +1,11 @@
 from flask import Flask, render_template, url_for, request, redirect, session, flash
 import mysql.connector  # serve installare: mysqlclient e mysql-connector
 import gc
+from functools import wraps
+from passlib.hash import sha256_crypt
+import secrets
 
+#TODO fare resize dell'icona favicon a 16x16
 
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
 '''
@@ -9,16 +13,15 @@ Useful queries:
 
 fare con fetch_db():
 query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "' AND PASSWORD = '" + password + "'"
-query = "SELECT * FROM INSERTIONS WHERE TEXT LIKE '%" + to_search + "%' AND USERNAME = '" + username + "'"
+query = "SELECT * FROM TABLE_NAME WHERE TEXT LIKE '%" + searched_text + "%' AND USERNAME = '" + username + "'"
 
 fare con insert_db():
 query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
-query = "DELETE FROM INSERTIONS WHERE INS_CODE = '" + code + "'"
+query = "DELETE FROM TABLE_NAME WHERE FIELD = '" + user_input + "'"
 '''
 
 app = Flask(__name__)
-
-online_users = {}
+app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 
 
 def dbconnect():
@@ -48,7 +51,6 @@ def insert_db(query):
     gc.collect()
     return
 
-from functools import wraps
 
 def login_required(route_function):
     @wraps(route_function)
@@ -73,9 +75,9 @@ def page_not_found(error):
 '''
 
 
-@app.route("/", methods=['GET','POST'])
+@app.route("/")
 def homepage():
-    return render_template("base.html", page_type="Home")
+    return render_template("home.html", page_type=request.args.get('page_type'))
 
 #TODO
 @app.route("/signin/", methods=['GET', 'POST'])
@@ -86,52 +88,54 @@ def signin_page():
         query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "' AND PASSWORD = '" + password + "'"
         result = fetch_db(query)
         if len(result) > 0:
-            user_info = result[0]  # (ID, username, email, password)
-
-
-            '''
+            # cookies
             session['logged_in'] = True
-            session['username'] = user_info[1]
+            session['username'] = username
 
-            return redirect(url_for('homepage'))
-            '''
+            return redirect(url_for('homepage', page_type="Home"))
+            # TODO serve poter passare i parametri meglio (per ora sono nella querystring della GET)
+        else:
+            flash("Invalid credentials!!!")
 
-
-
-            #TODO decidere cosa aggiungere al dizionario (online_users) per controllare gli utenti collegati alla sessione
-            return render_template("home.html", page_type="Home", user_id=user_info[0], username=user_info[1])
-        #TODO il template renderizzato è corretto ma la root nell'URL no (vedere come cambairla, serve farlo mantenendo il passaggio dei parametri quindi redirect non va bene)
-
-    #get request or user not found
+    # get request | user not found
     return render_template("login.html", page_type="Sign In")
+
 
 #TODO CREARE PAGINA DI LOGOUT
 
 
 #TODO
-@app.route("/signup/", methods=['GET','POST'])
+@app.route("/signup/", methods=['GET', 'POST'])
 def signup_page():
     # TODO verificare uguaglianza password con JS nell'html registration.html
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-
-        #pip install passlib
-        #from passlib.hash import sha256_crypt
-
-        #password = sha256_crypt.encrypt(str(password))
+        hashed_password = sha256_crypt.encrypt(str(password))
 
         #from mysql import escape_string as thwart # usate per mitigare le SQLi (non sono sicuro di dove fare la from!)
-
         # campo_sanitizzato = thwart(campo_di_un_form)
 
-        # add user
-        query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
-        insert_db(query)
-        # TODO il template renderizzato è corretto ma la root nell'URL no (vedere come cambairla, serve farlo mantenendo il passaggio dei parametri quindi redirect non va bene)
-        # dovrebbe andare a signin ma rimane a sign up (non posso usare redirect perchè devo passare il parametro page type)
-        return render_template("login.html", page_type="Sign In")
+        # search user
+        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "'"
+        result = fetch_db(query)
+        if len(result) == 0:
+            #adding the new user
+            query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, hashed_password)
+            insert_db(query)
+
+            #cookies
+            session['logged_in'] = True
+            session['username'] = username
+
+            return redirect(url_for('homepage', page_type="Home"))
+            # TODO serve poter passare i parametri meglio (per ora sono nella querystring della GET)
+
+        else:
+            flash("User already exists!!!")
+
+    #registration failed | get request
     return render_template("registration.html", page_type="Sign Up")
 
 

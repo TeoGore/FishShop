@@ -5,7 +5,11 @@
         <meta charset="UTF-8">
         <title>Fish Shop - {{ page_type }}</title>
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <!-- link rel="shortcut icon" href="favicon.ico" type="image/x-icon" / -->
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}" />
+
         <link href="/static/css/base.css" type="text/css" rel="stylesheet">
+
     {% endblock %}
 </head>
 <body>
@@ -13,7 +17,7 @@
 <header>
     <nav>
         <div class="navigation">
-            <a href="/"><img src="/static/images/logo.jpeg" alt="Fish Shop Logo"></a>
+            <a href="/"><img src="/static/images/logo.png" alt="Fish Shop Logo"></a>
             <a href="/search/">Search</a>
             <a href="/about/">About</a>
         </div>
