@@ -2,7 +2,6 @@ from flask import Flask, render_template, url_for, request, redirect, session, f
 import mysql.connector  # serve installare: mysqlclient e mysql-connector
 import gc
 from functools import wraps
-from passlib.hash import sha256_crypt
 import secrets
 
 #TODO fare resize dell'icona favicon a 16x16
@@ -85,15 +84,23 @@ def signin_page():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "' AND PASSWORD = '" + password + "'"
+
+        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "'"
         result = fetch_db(query)
         if len(result) > 0:
-            # cookies
-            session['logged_in'] = True
-            session['username'] = username
+            # user exists
+            db_password = result[0][3]  # result[0] = (ID, username, email, password)
 
-            return redirect(url_for('homepage', page_type="Home"))
-            # TODO serve poter passare i parametri meglio (per ora sono nella querystring della GET)
+            if password == db_password:
+                # provided correct password
+                # cookies
+                session['logged_in'] = True
+                session['username'] = username
+
+                return redirect(url_for('homepage', page_type="Home"))
+                # TODO serve poter passare i parametri meglio (per ora sono nella querystring della GET)
+            else:
+                flash("Invalid credentials!!!")
         else:
             flash("Invalid credentials!!!")
 
@@ -101,7 +108,7 @@ def signin_page():
     return render_template("login.html", page_type="Sign In")
 
 
-#TODO CREARE PAGINA DI LOGOUT
+#TODO CREARE PAGINA DI LOGOUT - vedere come usare session (e fare il redirect properly da sentdex)
 
 
 #TODO
@@ -112,7 +119,6 @@ def signup_page():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        hashed_password = sha256_crypt.encrypt(str(password))
 
         #from mysql import escape_string as thwart # usate per mitigare le SQLi (non sono sicuro di dove fare la from!)
         # campo_sanitizzato = thwart(campo_di_un_form)
@@ -121,11 +127,11 @@ def signup_page():
         query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "'"
         result = fetch_db(query)
         if len(result) == 0:
-            #adding the new user
-            query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, hashed_password)
+            # adding the new user
+            query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
             insert_db(query)
 
-            #cookies
+            # cookies
             session['logged_in'] = True
             session['username'] = username
 
@@ -135,13 +141,13 @@ def signup_page():
         else:
             flash("User already exists!!!")
 
-    #registration failed | get request
+    # registration failed | get request
     return render_template("registration.html", page_type="Sign Up")
 
 
 
 #TODO da fare anche html
-@app.route("/search/", methods=['GET','POST'])
+@app.route("/search/", methods=['GET', 'POST'])
 def search_page():
     return render_template("search.html", page_type="Search")
 

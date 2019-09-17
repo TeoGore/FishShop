@@ -15,17 +15,16 @@ CREATE TABLE USERS
     USER_ID INT PRIMARY KEY NOT NULL auto_increment,
 	USERNAME VARCHAR(30) NOT NULL,
 	EMAIL VARCHAR(50) NOT NULL,
-	PASSWORD VARCHAR(120) NOT NULL
+	PASSWORD VARCHAR(30) NOT NULL
 	-- SETTINGS VARCHAR(32500) usato spesso per mettere feature future ceh richiederebbero altre table (o di cambiare questa table)
 	-- RANK INT usato per dare ruoli agli utenti es: moderatore... o anche livelli in base a quanto hanno fatto sul sito (es: videogioco)
 );
 
--- Insert from the web app to insert the hashed password (these 3 are hashed with password_hashing.py)
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('admin', 'admin@admin.com', '$5$rounds=535000$Qxi5qnoC6Yilsi9d$VuG2Ixv1ZgSeBCgWxFobB9qAExPRyF0h2gaU3bpY886');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('teo', 'supergo@live.it', '$5$rounds=535000$fZw9ssyCbZ5eFmU8$2faUsWBoi8UnvHMqcHDIJZs5M365dUWcpziwiT72I1D');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('test', 'test@test.test', '$5$rounds=535000$qMPLIsoZhu0SUBeD$.VEYJGhbClZpDAGMlLva1pgtYZeBgaVnqazH7lpuHz4');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('user', 'user@user.user', '$5$rounds=535000$xgOuA/cz..jVyyYM$O/yuXEiff5lLNSzXPCB/jizroeYrkP.qhxBNkSEIdeB');
--- new user passwords will be equal to the username (for memory problems xD)
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('admin', 'admin@admin.com', 'admin');
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('teo', 'supergo@live.it', 'teo');
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('test', 'test@test.test', 'test');
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('user', 'user@user.user', 'user');
+
 
 CREATE TABLE FISHES
 (
@@ -44,6 +43,7 @@ INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VA
 INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Great White Shark', 143.66, 200.61, 130.7, 'Oceano Atlantico', 'Pesce assassino, sente una goccia di sangue in mezzo a 1.000.000 di gocce di acqua!', '/static/images/phishes/white_shark.jpeg');
 INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Blue Whale', 260.21, 344.12, 300.4, 'Oceano Atlantico', 'Pesce lungo e lento ma non vuoi capitarle vicino, te lo assicuro!', '/static/images/phishes/blue_whale.jpeg');
 
+
 CREATE TABLE CART
 (
     USER INT NOT NULL REFERENCES USERS(USER_ID),
@@ -53,6 +53,7 @@ CREATE TABLE CART
 );
 
 INSERT INTO CART VALUES (2, 1, 3);
+
 
 CREATE TABLE WISHLIST
 (

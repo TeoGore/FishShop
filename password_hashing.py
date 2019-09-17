@@ -33,3 +33,5 @@ print(sha256_crypt.hash("admin"))
 print(sha256_crypt.hash("teo"))
 print(sha256_crypt.hash("test"))
 print(sha256_crypt.hash("user"))
+
+# NOT USED BECAUSE THE VERIFY SEEMS NOT WORKING!!!
