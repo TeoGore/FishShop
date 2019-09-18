@@ -5,22 +5,25 @@
         <meta charset="UTF-8">
         <title>Fish Shop - {{ page_type }}</title>
 
-        <!-- favicon.ico tags -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
         <link href="/static/css/base.css" type="text/css" rel="stylesheet">
-        <!-- TODO: vedere come fare il link del javascript -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="/static/js/base.js"></script>
 
     {% endblock %}
 </head>
 <body>
 
-<header>
+<header class="header">
     <nav>
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo.png" alt="Fish Shop Logo" id="img-logo"></a>
+        </div>
         <div class="navigation">
-            <a href="/"><img src="/static/images/logo.png" alt="Fish Shop Logo"></a>
-            <a href="/search/">Search</a>
-            <a href="/about/">About</a>
+            <ul>
+                <li><a href="/search/">Search</a></li>
+                <li><a href="/about/">About</a></li>
+            </ul>
         </div>
 
 
@@ -29,39 +32,66 @@
         l'icona per il carrello deve richiedere login se non è ancora stato fatto (usare decorator login required)
         -->
         <div class="userinfo">
-            <a href="/signup/">Sign Up</a>
+            <a href="/whishlist/">Whishlist</a>              <!-- TODO eliminare le scritte e mettere immagini per carrello e whishlist-->
+            <a href="/shopping_cart/">Shopping cart</a>
             <a href="/signin/">Sign In</a>
+            <a href="/signup/">Sign Up</a>
 
             <!-- fare in modo che:
              -quando l'utente si logga, il bottone di login diventa il nome dell'utente ed è un link alla sua pagina profilo (dove vede informazioni e può aggiungersi i soldi)
-             -quando utente loggato, il suo nome (oltre che bottone) è un menu a tendina per scollegare l'utente
+             -quando utente loggato, il suo nome (oltre che bottone) è un menu a tendina per scollegare l'utente (e si potrebbe nascondere la pagina di registrazione)
             -->
         </div>
     </nav>
 </header>
 
-<!-- TODO mettere la lista a sinistra con i link per la ricerca veloce (filtri)-->
+<aside class="aside aside_fast_search">
+    <ul>
+        <li>Tuna</li>
+        <li>Salmon</li>
+        <li>Shark</li>
+        <li>Whale</li>
+    </ul>
+</aside>
 
-<div class="flash_messages">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="flashed_message">
-                    {{ message }}
-                    <button type="button" class="close">&times;</button>
-                <!-- magari il bottone mettere solo ID e non classe, comunque deve chiudere i messaggi flashati-->
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</div>
+<main class="main">
 
-<main>
+    <div class="flashed_messages_container">
+        {% with messages = get_flashed_messages() %}
+
+            <!-- todo: only for testing, then remove -->
+            <div class="flashed_message"> Messaggio Flash test 1!<button type="button" class="close">&times;</button></div>
+            <div class="flashed_message"> Messaggio Flash test 2!<button type="button" class="close">&times;</button></div>
+            <div class="flashed_message"> Messaggio Flash test 3!<button type="button" class="close">&times;</button></div>
+            <div class="flashed_message"> Messaggio Flash test 4!<button type="button" class="close">&times;</button></div>
+            <div class="flashed_message"> Messaggio Flash test 5!<button type="button" class="close">&times;</button></div>
+
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="flashed_message">
+                        {{ message }}
+                        <button type="button" class="close">&times;</button>
+                    <!-- magari il bottone mettere solo ID e non classe, comunque deve chiudere i messaggi flashati-->
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
     {% block body %}
     {% endblock %}
 </main>
 
-<footer>&copy;2019 Matteo Goretti | All rights reserved</footer>
+<aside class="aside aside_adv">
+    <img src="/static/images/adv_2.jpg" alt="Advert image" id="adv-img">
+    <!-- todo con .js fare in modo di cambiarlo ad ogni redirezione/click di un link
+        si trovano pubblicita con: https://www.google.com/search?biw=2560&bih=1329&tbm=isch&sa=1&ei=Z1qCXaGzD-rIgwfMk5qgAQ&q=fish+adv+banner&oq=fish+adv+banner&gs_l=img.3...18218.18461..18978...0.0..0.65.185.3......0....1..gws-wiz-img.G1VzNUqq8IA&ved=0ahUKEwjhgsi_5NrkAhVq5OAKHcyJBhQQ4dUDCAc&uact=5#imgrc=f-xo_JpToQwtTM:
+    -->
+</aside>
+
+
+
+<footer class="footer">&copy;2019 Matteo Goretti | All rights reserved</footer>
 
 </body>
 </html>

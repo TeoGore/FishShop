@@ -4,8 +4,6 @@ import gc
 from functools import wraps
 import secrets
 
-#TODO fare resize dell'icona favicon a 16x16
-
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
 '''
 Useful queries:
