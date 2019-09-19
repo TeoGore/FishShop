@@ -126,10 +126,9 @@ def signup_page():
         result = fetch_db(query)
         if len(result) == 0:
             # adding the new user
-            query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('{}', '{}', '{}');".format(username, email, password)
+            query = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, CREDIT) VALUES('{}','{}','{}','{}');".format(username, email, password, 10.00)
             insert_db(query)
 
-            # cookies
             session['logged_in'] = True
             session['username'] = username
 

@@ -15,15 +15,16 @@ CREATE TABLE USERS
     USER_ID INT PRIMARY KEY NOT NULL auto_increment,
 	USERNAME VARCHAR(30) NOT NULL,
 	EMAIL VARCHAR(50) NOT NULL,
-	PASSWORD VARCHAR(30) NOT NULL
+	PASSWORD VARCHAR(30) NOT NULL,
+	CREDIT DOUBLE NOT NULL
 	-- SETTINGS VARCHAR(32500) usato spesso per mettere feature future ceh richiederebbero altre table (o di cambiare questa table)
 	-- RANK INT usato per dare ruoli agli utenti es: moderatore... o anche livelli in base a quanto hanno fatto sul sito (es: videogioco)
 );
 
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('admin', 'admin@admin.com', 'admin');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('teo', 'supergo@live.it', 'teo');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('test', 'test@test.test', 'test');
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD) VALUES('user', 'user@user.user', 'user');
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, CREDIT) VALUES('admin', 'admin@admin.com', 'admin', 300.00);
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, CREDIT) VALUES('teo', 'supergo@live.it', 'teo', 1000000000.00);
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, CREDIT) VALUES('test', 'test@test.test', 'test', 20.0);
+INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, CREDIT) VALUES('user', 'user@user.user', 'user', 10.0);
 
 
 CREATE TABLE FISHES
