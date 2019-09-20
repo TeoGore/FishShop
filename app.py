@@ -74,7 +74,25 @@ def page_not_found(error):
 
 @app.route("/")
 def homepage():
-    return render_template("home.html", page_type=request.args.get('page_type'))
+    query = "SELECT * FROM FISHES"
+    element_list = fetch_db(query)
+
+    # todo se l'utente è loggato cambiare le dovute icone
+    return render_template("home.html", page_type=request.args.get('page_type'), element_list=element_list)
+
+@app.route("/product/")
+def product_page():
+    fish_id = request.args.get('fish_id', default=1, type=int)
+    query = "SELECT * FROM FISHES WHERE FISH_ID = '" + str(fish_id) + "'"
+    fish = fetch_db(query)
+
+    if len(fish) == 1:
+        return render_template("product.html", page_type=f'{fish[0][1]}', fish=fish[0])
+    else:
+        #fish not found (not exits in teh DB)
+        return redirect('not existing page')
+
+
 
 #TODO
 @app.route("/signin/", methods=['GET', 'POST'])
