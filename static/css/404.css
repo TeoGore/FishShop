@@ -1,0 +1,26 @@
+.error {
+    position:fixed;
+    margin:0px;
+    top:15%;
+    left:15%;
+    width:60%;
+    height:100%;
+    color:#0c576d;
+}
+
+h1 {
+    font-size: xx-large;
+    height:30%;
+}
+
+p {
+    height:20%;
+}
+
+.error-img {
+    position: relative;
+    top:10%;
+    left:20%;
+    height: 60%;
+    width: 100%;
+}

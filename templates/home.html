@@ -2,7 +2,7 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/home.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -13,18 +13,17 @@
         <div class="product">
             <form  method="get" action="/product/">
                 <img src="{{ fish[-1] }}" alt="{{ fish[1] }}" class="product-img">
-                <h3>{{ fish[1] }}</h3>
-                <p>{{ fish[-2] }}</p>
+                <div class="description">
+                    <h3>{{ fish[1] }}</h3>
+                    <p>{{ fish[-2] }}</p>
+                </div>
                 <div class="price">
-                    {{ fish[2] }} €
-                    <input type="submit" name="fish_id" value="{{ fish[0] }}">
+                    <pre>{{ fish[2] }} €</pre>
+                    <input type="submit" name="buy-button" value="Check It!" class="fast-search-button">
+                    <input type="hidden" name="fish_id" value="{{ fish[0] }}">
                 </div>
             </form>
         </div>
     {% endfor %}
 
-
-    <h1>Questa è la home!!!</h1>
-
-    <!-- mettere il contenuto del body e la lista a sinistra con la ricerca veloce con gia dei tag-->
 {% endblock %}

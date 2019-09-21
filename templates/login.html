@@ -2,29 +2,30 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/login.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    <form method="Post" action="/signin/">
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" placeholder="Username" required>
 
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" placeholder="Password" required>
+    <div class="sign-form">
+        <form method="Post" action="/signin/" >
+            <label for="username">Username: </label>
+            <input type="text" class="sign-input" name="username" id="username" placeholder="Username" required>
 
-        <button type="submit">Sign In</button>
+            <label for="password">Password: </label>
+            <input type="password" class="sign-input" name="password" id="password" placeholder="Password" required>
 
-        <!-- mettere:
-        -bottone per resettare i campi
-        -link per il forgot password
-        -JS per scambiare a form di registrazione
-        -link per il forgot password
-        -->
-    </form>
+            <input type="submit" value="Sign In" name="signin" class="sign-button">
 
-    <p>
-        Don't have an account? <a href="/signup/">Sign Up here!</a>
-    </p>
+        </form>
+
+        <p>
+            Don't have an account? <a href="/signup/">Sign Up here!</a>
+        </p>
+        <p>
+            <a href="/signup/">Forgot Password?</a>
+        </p>
+    </div>
+
 {% endblock %}
 

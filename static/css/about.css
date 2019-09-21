@@ -1,0 +1,37 @@
+h1 {
+    margin-top:1em;
+    color:#0c576d;
+    font-size: xx-large;
+    height:5%;
+}
+
+h2 {
+    color:#0c576d;
+    font-size: x-large;
+    height:4%;
+}
+
+.content {
+    color:#0c576d;
+    margin: 1em 1em 1em 0em;
+}
+
+p {
+    margin: 2em 0em 2em 0em;
+    height:20%;
+    display: block;
+}
+
+.content ul li {
+    position: relative;
+    left: 20px;
+    top:-15px;
+    padding:1em 0em 1em 0em;
+    height:10%;
+}
+
+.logo-img {
+    float: right;
+    position: relative;
+    top:-24.5em;
+}

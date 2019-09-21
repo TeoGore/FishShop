@@ -25,8 +25,8 @@ def generate_description(name, price, weight, length, sea):
     else:
         weig = 'thin and light'
 
-    cook = ['PASTA', 'soups', 'lasagna', 'salads', 'sandwich', 'all kinds of stuff', 'rice']
-    return f"The {name} is a very good fish! It is {leng} and can be very {weig}!! It costs only {price} and is very good for cooking {random.choice(cook)}! It was caught in {sea}."
+    cook = ['pasta', 'soups', 'lasagna', 'salads', 'sandwich', 'all kinds of stuff', 'rice', 'hamburgers', 'spaghetti', 'tartare']
+    return f"The {name} is a very good fish! It is {leng} and can be very {weig}!! It costs only {price} € and is very good for cooking {random.choice(cook)}! It was caught in {sea}."
 
 
 def generate_url(img_name):

@@ -2,32 +2,32 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/login.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    <form method="Post" action="/signup/">
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username" placeholder="Username" required>
+    <div class="sign-form">
+        <form method="Post" action="/signup/">
+            <label for="username">Username: </label>
+            <input type="text" class="sign-input" name="username" id="username" placeholder="Username" required>
 
-        <label for="username">Email: </label>
-        <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+            <label for="username">Email: </label>
+            <input type="email" class="sign-input" name="email" id="email" placeholder="example@gmail.com" required>
 
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password" placeholder="Password" required>
+            <label for="password">Password: </label>
+            <input type="password" class="sign-input" name="password" id="password" placeholder="Password" required>
 
-        <label for="password">Repeat Password: </label>
-        <input type="password" name="password_repeated" id="password_repeated" placeholder="Repeat Password" required>
+            <label for="password">Repeat Password: </label>
+            <input type="password" class="sign-input" name="password_repeated" id="password_repeated" placeholder="Repeat Password" required>
 
-        <!-- verificare uguaglianza password con JS-->
+            <!-- verificare uguaglianza password con JS-->
 
-        <button type="submit">Sign Up</button>
+            <input type="submit" value="Sign Up" name="signup" class="sign-button">
 
-        <!-- mettere:
-        -bottone per resettare i campi
-        -link per il forgot password
-        -JS per scambiare a form di registrazione
-        -->
-    </form>
+        </form>
+        <p>
+            Already have an account? <a href="/signin/">Sign In!</a>
+        </p>
+    </div>
 {% endblock %}
 

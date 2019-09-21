@@ -2,13 +2,18 @@
     margin: 0px;
     padding: 0px;
     height: 100%;
-    font-family: Verdana, sans-serif;
+/* Da: https://css-tricks.com/snippets/css/font-stacks/
+    font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+ */
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
 }
+
 
 body {
     background-image: linear-gradient(#f0fff4, #269dff);
     background-repeat:no-repeat;
     background-attachment:fixed;
+    display:inline-flex;
 }
 
 header{
@@ -30,7 +35,7 @@ nav a {
     padding: 2em 1em 1em 1em;
     text-align: center;
     text-decoration: none;
-    font-size: 17px;
+    font-size: larger;
 }
 
 nav a:hover {
@@ -77,41 +82,7 @@ li.fast-search-element {
     color: white;
 }
 
-/*
-.aside_adv {
-    position: fixed;
-    top:25%;
-    right: 0%;
-    width:15%;
-    height:40%;
-}
-
-img {
-    max-width:100%;
-    max-height:100%;
-    COMMENT object-fit: contain;
-}
-
-
-.flashed_messages_container {
-    background: #673AB7;
-    padding: 0.2em;
-}
-
-.flashed_message {
-    background: #03A9F4;
-    margin: 1em;
-}
-
-.close {
-   position: relative;
-   left: 80%;
-}
-*/
-
-
 main {
-    background: crimson;
     position: relative;
     padding: 1.5em 1.5em 1em 1.5em;
     margin: 0px;
@@ -123,31 +94,9 @@ main {
 main div {
     display:block;
     margin: 7% 10% 7% 10%;
-    border: 10px solid red;
+    border: 10px;
     max-width:80%;
     max-height: 15%;
-}
-
-div.product {
-    padding: 1em;
-    margin: 1em;
-    border: 10px solid red;
-    border-radius:initial;
-}
-
-
-img.product-img {
-    position: relative;
-    float: left;
-    right-padding: 10px;
-    border-right: 10px solid red;
-    max-width: 200px;
-    max-height:200px;
-}
-
-div.price {
-    position: relative;
-    float:right;
 }
 
 footer {

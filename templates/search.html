@@ -6,10 +6,16 @@
 {% endblock %}
 
 {% block body %}
-    <form method="Post" action="/">
+
+    <div class="search-engine">
+        <form method="Post" action="/">
         <label for="search_text">Search: </label>
         <input type="text" name="search_text" id="search_text" placeholder="Search...">
 
         <button type="submit">Search</button>
+            <!-- table fish: (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)-->
+            <!-- todo fare 2 form, uno per la semplice ricerca di testo, l'altro per la ricerca con filtri-->
     </form>
+    </div>
+
 {% endblock %}

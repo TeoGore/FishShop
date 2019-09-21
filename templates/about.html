@@ -2,15 +2,46 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/about.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    <p>
-    Our team is all over the world.
-    Educating and empowering the SEO community by providing the freshest news and latest best practices via the industry’s smartest practitioners.
+    <h1>Fish Shop - About Us</h1>
+    <h2>Shopping Web App</h2>
 
-    Launched in 2003, SEJ is unique in its community-based approach to search marketing content. Virtually all of our contributed articles come from real online marketing experts, both independent and in-house.
-    </p>
-    !!!!!!!!mettere il logo sulla destra gigante!"!!!!!!!
+    <div class="content">
+        <p>
+            The usage is very simple! The seller needs only o clone the repository of the web app and build his database dependingo on what fish he has.
+            Then it's only a matter to serve the web app through a web server!
+            The web app is written using a modern programming language: Python, with one of its most famous web frameworks: Flask!
+        </p>
+
+        <p>
+            Thanks to Flask, the app is built using templating (managed by Jinja engine) so all the redundancy in web pages is removed.
+            This is good for both programmers that need to maintain the web app, and users that receive their content in a fast way
+        </p>
+
+        <p>
+            As we speak about the simplicity and minimalism of this web app, it's noticable that in order to run the app it's only needed a python 3 interpreter and some dependecies:
+        </p>
+
+        <ul>
+            <li>Python 3.6 or newer</li>
+            <li>Flask</li>
+            <li>MySQL (client and connector)</li>
+            <li>passlib (optional/still not implemented)</li>
+        </ul>
+
+        <p>Still we need to improve the application, indeed, we need a good hashing algorithm to hash the passwords of the users (if someone has advices, please contact me!)</p>
+
+        <p>
+            Our team is all over the world.
+            Launched in 2019, Fish Shop is a unique web app that enables users to sell their fishes!
+        </p>
+
+        <img src="/static/images/logo.png" alt="Fish Shop Logo" class="logo-img">
+
+    </div>
+
+
 {% endblock %}

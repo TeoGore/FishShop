@@ -2,13 +2,13 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/404.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
     <div class="error">
         <h1>Ooops, this page doesn't exists!</h1>
         <p>Check the URL! (404 - page not found)</p>
-        <img src="/static/images/404.png">
     </div>
+    <img src="/static/images/404.png" alt="404 error - Page Not Found (check the URL)" class="error-img">
 {% endblock %}

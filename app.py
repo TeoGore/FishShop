@@ -3,8 +3,12 @@ import mysql.connector  # serve installare: mysqlclient e mysql-connector
 import gc
 from functools import wraps
 import secrets
+import random
 
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
+
+#todo resize buttons to same length in fast search bar
+#todo togliere sfondo bianco al logo e alla altra immagine di errore 404
 '''
 Useful queries:
 
@@ -76,7 +80,7 @@ def page_not_found(error):
 def homepage():
     query = "SELECT * FROM FISHES"
     element_list = fetch_db(query)
-
+    random.shuffle(element_list)
     # todo se l'utente è loggato cambiare le dovute icone
     return render_template("home.html", page_type=request.args.get('page_type'), element_list=element_list)
 
@@ -87,6 +91,7 @@ def product_page():
     fish = fetch_db(query)
 
     if len(fish) == 1:
+        # (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)
         return render_template("product.html", page_type=f'{fish[0][1]}', fish=fish[0])
     else:
         #fish not found (not exits in teh DB)
