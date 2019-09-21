@@ -39,11 +39,13 @@ CREATE TABLE FISHES
 	IMAGE_URL VARCHAR(500) NOT NULL
 );
 
+/*
 -- Old manual insert
--- INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Tuna', 20.34, 40.7, 10.4, 'Mar Adriatico', 'Bel pesce, ottimo per il sushi e per fare la pasta!', '/static/images/phishes/tuna.jpeg');
--- INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Salmon', 15.65, 50.44, 15.6, 'Mar Tirreno', 'Ottimo pesce per una tartare o un hamburger!', '/static/images/phishes/salmon.png');
--- INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Great White Shark', 143.66, 200.61, 130.7, 'Oceano Atlantico', 'Pesce assassino, sente una goccia di sangue in mezzo a 1.000.000 di gocce di acqua!', '/static/images/phishes/white_shark.jpeg');
--- INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Blue Whale', 260.21, 344.12, 300.4, 'Oceano Atlantico', 'Pesce lungo e lento ma non vuoi capitarle vicino, te lo assicuro!', '/static/images/phishes/blue_whale.jpeg');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Tuna', 20.34, 40.7, 10.4, 'Mar Adriatico', 'Bel pesce, ottimo per il sushi e per fare la pasta!', '/static/images/phishes/tuna.jpeg');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Salmon', 15.65, 50.44, 15.6, 'Mar Tirreno', 'Ottimo pesce per una tartare o un hamburger!', '/static/images/phishes/salmon.png');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Great White Shark', 143.66, 200.61, 130.7, 'Oceano Atlantico', 'Pesce assassino, sente una goccia di sangue in mezzo a 1.000.000 di gocce di acqua!', '/static/images/phishes/white_shark.jpeg');
+INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Blue Whale', 260.21, 344.12, 300.4, 'Oceano Atlantico', 'Pesce lungo e lento ma non vuoi capitarle vicino, te lo assicuro!', '/static/images/phishes/blue_whale.jpeg');
+*/
 
 -- generated with create_fish_db.py
 INSERT INTO FISHES (NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL) VALUES ('Squalo', 4715.34, 9874.98, 89.69, 'Mar Mediterraneo', 'The Squalo is a very good fish! It is short and can be very heavy-weight champion!! It costs only 4715.34 € and is very good for cooking rice! It was caught in Mar Mediterraneo.', '/static/images/phishes/shark.png');
@@ -83,7 +85,7 @@ CREATE TABLE CART
 
 INSERT INTO CART VALUES (2, 1, 3);
 
-
+/*
 CREATE TABLE WISHLIST
 (
     USER INT NOT NULL REFERENCES USERS(USER_ID),
@@ -92,3 +94,5 @@ CREATE TABLE WISHLIST
 );
 
 INSERT INTO WISHLIST VALUES (1, 1);
+*/
+

@@ -18,9 +18,8 @@ p {
 }
 
 .error-img {
-    position: relative;
-    top:10%;
+    position: fixed;
+    top:25%;
     left:20%;
     height: 60%;
-    width: 100%;
 }

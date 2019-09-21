@@ -172,14 +172,12 @@ def search_page():
     return render_template("search.html", page_type="Search")
 
 
-#TODO da fare anche html
 @app.route("/about/", methods=['GET'])
 def about_page():
     return render_template("about.html", page_type="About")
 
 #mettere pagina per mostrare i dettagli del prodotto
 #mettere pagina carrello
-#fare anche pagina wishlist
 
 
 if __name__ == "__main__":
