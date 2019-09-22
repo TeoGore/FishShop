@@ -2,16 +2,35 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/product.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
-
-
-
-
 {% block body %}
-    <div class="fish-container">
+    <div class="product">
     <!-- (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)-->
-        {{ fish }}
+        <div class="prod-descr">
+            <div class="description">
+                <h1>{{ fish[1] }}</h1>
+                <h4>Sea: {{ fish[5] }}</h4>
+                <ul>
+                    <li>Length: {{ fish[4] }}</li>
+                    <li>Weight: {{ fish[3] }}</li>
+                </ul>
+
+                <h2>{{ fish[2] }} €</h2>
+
+            </div>
+            <div class="cart">
+                <form method="get" action="/shopping_cart/">
+                    <label for="quantity">Quantity: </label>
+                    <input type="number" name="quantity" id="quantity" min="1" value="1" class="qt-input">
+                    <input type="submit" name="buy-button" value="Add to Cart!" class="cart-button">
+                    <input type="hidden" name="fish_id" value="{{ fish[0] }}">
+                </form>
+            </div>
+        </div>
+        <div class="prod-img">
+            <img src="{{ fish[-1] }}" alt="{{ fish[1] }}" class="product-img">
+        </div>
     </div>
 {% endblock %}

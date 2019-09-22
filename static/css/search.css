@@ -1,0 +1,156 @@
+.search-engine {
+    color:#0c576d;
+    font-size:large;
+    position:relative;
+    top:5%;
+    width: 100em;
+    height:30%;
+    margin:0px 0px 100px 0px;
+    padding:0px 40px 0px 0px;
+    border-bottom: #f7df4d solid 5px;
+    border-radius:40px;
+}
+
+.search-engine div {
+    margin:0px 0px 10px 0px;
+}
+
+.search-input {
+    float:left;
+    border-radius:10px;
+}
+
+/*
+search-input-->all form controls
+search-string--> normal search
+advanced-search --> other controls
+*/
+.search-string {
+    font-size:larger;
+    display:inline;
+}
+
+.search-string label{
+    font-size:larger;
+    visibility:hidden;
+    display:none;
+}
+
+.search-string .search-input {
+    width:80%;
+    height:20%;
+    margin-right: 3em;
+    font-size:large;
+    text-align:center;
+}
+
+.search-button {
+    background-color: #e0c831;
+    color: white;
+    border-radius: 12px;
+    padding: 5px 5px 5px 5px;
+    width:15%;
+    height:22%;
+    font-size: 20px;
+    text-align:center;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+}
+
+.search-button:hover {
+    background-color: #7f20a7;
+}
+
+form div.advanced-search {
+    margin:0px;
+    padding:0px;
+    display:block;
+    position:relative;
+    width:100%;
+}
+
+.advanced-search .advanced-control {
+    display:inline-block;
+    margin: 0px;
+    padding: 1.6em 3.5em 3em 1em;
+}
+
+.advanced-search .advanced-control:nth-child(2) {
+  position:relative;
+  height:10%;
+  top:-2.4em;
+}
+
+.advanced-search .advanced-control label{
+    position:relative;
+    float:left;
+    margin: 0em 1.1em 0em 0em;
+}
+
+.advanced-search .advanced-control .search-input{
+    height:20px;
+}
+
+output {
+  font: bold medium "Lucida Console";
+  text-align: center;
+  position: relative;
+  left: -5em;
+  top:-1em;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.search-results {
+    color:#0c576d;
+    position:relative;
+    width:100%;
+    height:100%;
+    margin: 0px 0px 300em 0px;
+}
+
+h3 {
+  height:30px;
+}
+
+.search-results a {
+    display:inline-block;
+    text-align: center;
+    color:#0c576d;
+    text-decoration:none;
+    border: 5px solid #f7df4d;
+    border-radius: 20px 40px 20px 40px;
+    width:25%;
+    height:250%;
+    margin: 2em 2em 2em 2em;
+}
+
+.search-result img {
+    position:relative;
+    width:150px;
+    height:150px;
+    padding: 0px 30px 30px 30px;
+    border-bottom: 5px solid #f7df4d;
+    border-radius: 20px ;
+}
+
+h4 {
+  font-size: x-large;
+  height:2.5em;
+}
+
+p {
+  font-size:large;
+  height:1.5em;
+}
+
+p.price {
+  color:#f7df4d;
+  font-size:xx-large;
+  padding-top:3em;
+}
+
+.no-result {
+    font-size:xx-large;
+}

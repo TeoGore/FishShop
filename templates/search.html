@@ -2,20 +2,79 @@
 
 {% block head %}
     {{ super() }}
-    <!-- mettere qua i nuovi pezzi di header da linkare-->
+    <link href="/static/css/search.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/search.js"></script>
 {% endblock %}
 
 {% block body %}
 
     <div class="search-engine">
-        <form method="Post" action="/">
-        <label for="search_text">Search: </label>
-        <input type="text" name="search_text" id="search_text" placeholder="Search...">
+        <form method="get" action="/search/">
 
-        <button type="submit">Search</button>
-            <!-- table fish: (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)-->
-            <!-- todo fare 2 form, uno per la semplice ricerca di testo, l'altro per la ricerca con filtri-->
-    </form>
+            <div class="search-string">
+                <!-- input string-->
+                <label for="search_text">Search: </label>
+                <input type="text" name="search_text" id="search_text" placeholder="Search..." class="search-input">
+                <input type="submit" name="search-button" value="Search" class="search-button">
+            </div>
+
+            <div class="advanced-search">
+                <!-- decide to use input string as fish name, sea or both in the query to the DB-->
+                <div class="advanced-control">
+                    <label for="search_type">Search For: </label>
+                    <select name="search_type" class="search-input">
+                        <option value="all" selected>All</option>
+                        <option value="fish">Fish Name</option>
+                        <option value="sea">Sea Name</option>
+                    </select>
+                </div>
+
+                <div class="advanced-control">
+                    <!-- decide values for price-->
+                    <label for="price-maxval">Max Price: </label>
+                    <input type="range" min="5" max="5000" value="5000" class="search-input slider" name="price-maxval" id="price-maxval" oninput="showRangeInput(this.value);">
+                    <output for="price-maxval" id="slider-output"></output>
+                </div>
+
+                <div class="advanced-control">
+                    <!-- decide the order-->
+                    <label for="search-order">Order By: </label>
+                    <select name="search-order" class="search-input">
+                        <option value="random" selected>Random</option>
+                        <option value="low-price">Low Price</option>
+                        <option value="high-price">High Price</option>
+                        <option value="fish">Fish Name</option>
+                        <option value="sea">Sea Name</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- table fish: (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)-->
+    <div class="search-results">
+        {% if element_list %}
+            {% if element_list|length %}
+                <h3>Results for: "{{ search }}"</h3>
+                {% for fish in element_list %}
+                    <a href="/product/?fish_id={{ fish[0] }}">
+                        <div class="search-result">
+                                <img src="{{ fish[-1] }}" alt="{{ fish[1] }}" class="product-img">
+                                <h4>{{ fish[1] }}</h4>  <!-- name, sea, price-->
+                                <p>{{ fish[5] }}</p>
+                                <p class="price">{{ fish[2] }} €</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="no-result">
+                    Sorry, no results found for "{{ search }}". Try again!
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="no-result">
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}

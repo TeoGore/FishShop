@@ -9,6 +9,11 @@ import random
 
 #todo resize buttons to same length in fast search bar
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
+
+#creare pagine: prodotto, carrello, profilo utente
+#creare root per il logout
+
+
 '''
 Useful queries:
 
@@ -38,7 +43,6 @@ def fetch_db(query):
     cursor.close()
     db.close()
     gc.collect() #call garbage collector
-
     return results
 
 
@@ -78,7 +82,7 @@ def page_not_found(error):
 
 @app.route("/")
 def homepage():
-    query = "SELECT * FROM FISHES"
+    query = "SELECT * FROM FISHES;"
     element_list = fetch_db(query)
     random.shuffle(element_list)
     # todo se l'utente è loggato cambiare le dovute icone
@@ -87,26 +91,73 @@ def homepage():
 @app.route("/product/")
 def product_page():
     fish_id = request.args.get('fish_id', default=1, type=int)
-    query = "SELECT * FROM FISHES WHERE FISH_ID = '" + str(fish_id) + "'"
+    query = "SELECT * FROM FISHES WHERE FISH_ID = '" + str(fish_id) + "';"
     fish = fetch_db(query)
 
     if len(fish) == 1:
         # (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)
         return render_template("product.html", page_type=f'{fish[0][1]}', fish=fish[0])
     else:
-        #fish not found (not exits in teh DB)
+        # fish not found (not exits in the DB)
         return redirect('not existing page')
 
 
+def retrieve_fishes(element_list):
+    # element list = lista di tuple (uid, fish_id, qta)
+    # for each fish we create a tuple (fish_id, name, price, description, img_url, qta)
+    # (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)
+    result = []
+    for elem in element_list:
+        query = f"SELECT * FROM FISHES WHERE FISH_ID = {str(elem[1])};"
+        fish = fetch_db(query)
+        fish = fish[0]
+        t = (fish[0], fish[1], fish[2], fish[6], fish[7], elem[2])
+        result.append(t)
+    return result
+
 
 #TODO
+@app.route("/shopping_cart/")
+def shopping_cart():
+    #todo handle with fish id removing or updating quantity of elements
+
+    #todo get user id
+    user_id = 1
+
+
+    quantity = request.args.get("quantity", type=int)
+    fish_id = request.args.get("fish_id", default=1)
+
+    if quantity is not None:
+        query = f"SELECT * FROM CART WHERE USER = {str(user_id)} AND FISH = {str(fish_id)};"
+        element_list = fetch_db(query)
+        if len(element_list) == 0:
+            # need new entry
+            query = f"INSERT INTO CART VALUES ({user_id}, {fish_id}, {quantity});"
+            insert_db(query)
+        else:
+            # entry already exists, sum quantity to the pre-existing
+            old_quantity = element_list[0][2]
+            new_quantity = old_quantity + quantity
+            query = f"UPDATE CART SET QUANTITY = {str(new_quantity)} WHERE USER = {str(user_id)} AND FISH = {str(fish_id)};"
+            insert_db(query)
+
+
+    query = f"SELECT * FROM CART WHERE USER = {str(user_id)};"
+    element_list = fetch_db(query)
+
+    element_list = retrieve_fishes(element_list)   # now is (fish_id, fish_name, price, description, img_url, qta)
+    return render_template("cart.html", page_type="Cart", element_list=element_list)
+
+
+# TODO
 @app.route("/signin/", methods=['GET', 'POST'])
 def signin_page():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "'"
+        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "';"
         result = fetch_db(query)
         if len(result) > 0:
             # user exists
@@ -145,7 +196,7 @@ def signup_page():
         # campo_sanitizzato = thwart(campo_di_un_form)
 
         # search user
-        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "'"
+        query = "SELECT * FROM USERS WHERE USERNAME ='" + username + "';"
         result = fetch_db(query)
         if len(result) == 0:
             # adding the new user
@@ -165,19 +216,51 @@ def signup_page():
     return render_template("registration.html", page_type="Sign Up")
 
 
-
-#TODO da fare anche html
-@app.route("/search/", methods=['GET', 'POST'])
+#todo fix difference between gte request to the page and results not found
+@app.route("/search/", methods=['GET'])
 def search_page():
-    return render_template("search.html", page_type="Search")
+
+    search_string = request.args.get("search_text", default="")
+    search_type = request.args.get("search_type", default="")  # all, fish, sea
+    maxprice = request.args.get("price-maxval", default=5000.00)  # (5, 5000)
+    order = request.args.get("search-order", default="")  # random, low-price, high-price, fish, sea
+    shuffle = False
+
+    if search_type == "fish":
+        search = "NAME LIKE '%" + search_string + "%'"
+    elif search_type == "sea":
+        search = "SEA LIKE '%" + search_string + "%'"
+    else:
+        search = "(NAME LIKE '%" + search_string + "%' OR SEA LIKE'%" + search_string + "%')"
+
+    price_string = " AND PRICE <= " + str(maxprice)
+
+    if order == "low-price":
+        order_string = " ORDER BY PRICE ASC"
+    elif order == "high-price":
+        order_string = " ORDER BY PRICE DESC"
+    elif order == "fish":
+        order_string = f" ORDER BY NAME ASC"
+    elif order == "sea":
+        order_string = f" ORDER BY SEA ASC"
+    else:
+        order_string = ""
+        shuffle = True
+
+    query = f"SELECT * FROM FISHES WHERE ({search}{price_string}){order_string};"
+    print(f"Query generated (shuffle:{shuffle}):\n{query}")
+
+    #query = "SELECT * FROM FISHES"        # test for all results
+    element_list = fetch_db(query)
+    if shuffle:
+        random.shuffle(element_list)
+
+    return render_template("search.html", page_type="Search", search=search_string, element_list=element_list)
 
 
 @app.route("/about/", methods=['GET'])
 def about_page():
     return render_template("about.html", page_type="About")
-
-#mettere pagina per mostrare i dettagli del prodotto
-#mettere pagina carrello
 
 
 if __name__ == "__main__":

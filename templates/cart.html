@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link href="/static/css/cart.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {{ element_list }}
+    <hr>
+    {% for e in element_list %}
+        {{ e }}
+    {% endfor %}
+{% endblock %}
