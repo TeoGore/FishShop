@@ -7,7 +7,7 @@ import random
 
 #TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
 
-#todo resize buttons to same length in fast search bar
+#todo resize buttons to same length in fast search bar (and fix their URL) (and add some of them)
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
 
 #creare pagine: prodotto, carrello, profilo utente
