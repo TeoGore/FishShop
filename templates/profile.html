@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link href="/static/css/profile.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {{ super() }}
+    <div class="profile">
+        {% if user_info%}
+            <!-- (ID,USERNAME, EMAIL, PASSWORD, CREDIT)-->
+
+            <!--todo generate profile pic randomly from image/profiles/-->
+            <img src="/static/images/profile_pics/profile_1.png" alt="User profile picture" class="profile-img">
+            <h2>{{ user_info[1] }}</h2>
+            <h3>{{ user_info[2] }}</h3>
+            <h4>{{ user_info[3] }}</h4>
+
+            <div class="credit">
+                <p class="current-credit">Current Credit: <div class="money">{{ user_info[4] }} €</div></p>
+                <p>Want more? <em>Invest Now!</em></p>
+                <form method="get" action="/profile/">
+                    <input type="submit" name="invest" value="€€€" class="invest-button">
+                </form>
+                <p class="beware">Beware, not all investments are good!</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

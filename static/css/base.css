@@ -86,7 +86,8 @@ li.fast-search-element {
     color: white;
     border-radius: 12px;
     padding: 6px 30px 30px 30px;
-    width:100%;
+    width:240px;
+    display:inline-block;
     font-size: 20px;
     text-align:center;
     -webkit-transition-duration: 0.3s; /* Safari */
@@ -99,9 +100,9 @@ li.fast-search-element {
 
 main {
     position: relative;
-    padding: 1.5em 1.5em 1em 1.5em;
+    padding: 1.5em 1.5em 1em;
     margin: 0px;
-    left:15%;
+    left: 20%;
     top: 10%;
     max-width: 80%;
 }

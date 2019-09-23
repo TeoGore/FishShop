@@ -1,0 +1,87 @@
+div.shopping-cart {
+    margin:20px;
+}
+
+div.product {
+    padding: 8em 5em 5em 5em;
+    margin: 2em;
+    border-bottom: 7px solid #f7df4d;
+    border-radius: 30px;
+    color:#0c576d;
+}
+
+main div.product:last-child {
+    margin-bottom:10%;
+    border-bottom: 10px solid #f7df4d;
+    border-radius: 30px;
+}
+
+div.product form {
+    display:flex;
+    position: relative;
+    top:-90px;
+}
+
+img.product-img {
+    position: relative;
+    float: left;
+    padding-right: 10px;
+    border-right: 3px solid #f7df4d;
+    width: 150px;
+    height:150px;
+
+}
+
+div.description {
+    margin:0px 0px 0px 1.3em;
+}
+
+div.description h3 {
+    font-size: xx-large;
+    margin:0px 0px 1.7em 0.7em;
+}
+
+div.description p {
+    margin:0px 0px 0px 1.3em;
+}
+
+div.price {
+    position: relative;
+    float:right;
+    margin: 1.5em 0em 4em 6em;
+    display:inline-grid;
+    color:#0c576d;
+}
+
+div.price p{
+    width:170px;
+    text-align:center;
+    font-size:larger;
+}
+
+div.price .fast-search-button{
+    max-width:100%;
+    max-height:100%;
+    margin: 1em 1px 1px 1px;
+    padding:0em 1.5em 0em 1.5em;
+}
+
+.pay {
+    color:#0c576d;
+    font-size:xx-large;
+    margin: 75px 0px 20em 0px;
+    position: relative;
+    left:130px;
+}
+
+.pay form {
+    position: relative;
+    top:-10px;
+    float:right;
+    width:200px;
+    height:1em;
+}
+
+.total-price {
+    padding-bottom:1em;
+}

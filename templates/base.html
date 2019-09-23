@@ -17,7 +17,7 @@
 <!-- TODO -->
 <header class="header">
     <nav>
-        <a href="/"><img src="/static/images/logo.png" alt="Home" id="img-logo"></a>
+        <a href="{{ url_for('homepage', page_type="Home") }}"><img src="/static/images/logo.png" alt="Home" id="img-logo"></a>
         <a href="/search/">Search</a>
         <a href="/about/">About</a>
 
@@ -27,9 +27,7 @@
             <a href="/signup/">Sign Up</a>
         </div>
 
-        <!--   TODO creare pagina contatti: con tutte le mie info e social
-            TODO creare pagina info utente, pagina carrello e pagina di ricerca
-
+        <!--   TODO
             -quando l'utente si logga il tasto login deve diventare il link alla sua pagina profilo (mettere immagine omino) con menu a tendina per logout
             -l'icona carrello deve richiedere login prima di poter essere usata
             -la pagina profilo utente deve presentare le infomazioni utili e dare la possibilità all'utente di aggiungersi soldi
@@ -42,44 +40,21 @@
 <aside class="aside aside_fast_search">
     <form class="fast-search-form" method="get" action="/search/">
         <ul>
-            <li class="fast-search-element"><input type="submit" value="Tuna" name="fish" class="fast-search-button"></li>
-            <li class="fast-search-element"><input type="submit" value="Salmon" name="fish" class="fast-search-button"></li>
-            <li class="fast-search-element"><input type="submit" value="Shark" name="fish" class="fast-search-button"></li>
-            <li class="fast-search-element"><input type="submit" value="Whale" name="fish" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="balena" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="squalo" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="mar mediterraneo" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="mar adriatico" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="mar tirreno" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="oceano indiano" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="oceano pacifico" class="fast-search-button"></li>
+            <li class="fast-search-element"><input type="submit" name="search_text" value="oceano atlantico" class="fast-search-button"></li>
         </ul>
     </form>
 </aside>
 
 <main class="main">
-
-    <!--
-        <div class="flashed_messages_container">
-        {% with messages = get_flashed_messages() %}
-
-            <div class="flashed_message"> Messaggio Flash test 1!<button type="button" class="close">&times;</button></div>
-            <div class="flashed_message"> Messaggio Flash test 2!<button type="button" class="close">&times;</button></div>
-            <div class="flashed_message"> Messaggio Flash test 3!<button type="button" class="close">&times;</button></div>
-            <div class="flashed_message"> Messaggio Flash test 4!<button type="button" class="close">&times;</button></div>
-            <div class="flashed_message"> Messaggio Flash test 5!<button type="button" class="close">&times;</button></div>
-
-
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="flashed_message">
-                        {{ message }}
-                        <button type="button" class="close">&times;</button>
-                    magari il bottone mettere solo ID e non classe, comunque deve chiudere i messaggi flashati
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-    </div>
-    -->
-
     {% block body %}
     {% endblock %}
-
-
 </main>
 
 <footer class="footer">&copy;2019 Matteo Goretti | All rights reserved</footer>

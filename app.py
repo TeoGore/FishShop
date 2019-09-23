@@ -10,6 +10,8 @@ import random
 #todo resize buttons to same length in fast search bar (and fix their URL) (and add some of them)
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
 
+#todo fixare su macbook pro la lunghezza a fine pagina della ricerca
+
 #creare pagine: prodotto, carrello, profilo utente
 #creare root per il logout
 
@@ -150,6 +152,13 @@ def shopping_cart():
     return render_template("cart.html", page_type="Cart", element_list=element_list)
 
 
+#TODO
+@app.route("/payment/")
+def payment():
+    #todo put logic for payment (or if no money redirect to cart with an error)
+
+    return redirect(url_for("homepage", page_type="Home"))
+
 # TODO
 @app.route("/signin/", methods=['GET', 'POST'])
 def signin_page():
@@ -181,6 +190,31 @@ def signin_page():
 
 
 #TODO CREARE PAGINA DI LOGOUT - vedere come usare session (e fare il redirect properly da sentdex)
+
+
+#TODO
+@app.route("/profile/")
+def profile_page():
+    #todo get user id
+    user_id = 1
+
+    if request.args.get('invest', default="") == '€€€':
+        # todo implement logic to randomly make lose money (if broke restart from 500€)
+        # the user want to invest, so we generate money
+        amount = round(random.uniform(500, 5000), 2)
+        query = f"SELECT * FROM USERS WHERE USER_ID = {user_id};"
+        user_info = fetch_db(query)
+        user_info = user_info[0]
+        new_credit = round(user_info[4] + amount, 2)
+        #update DB
+        query = f"UPDATE USERS SET CREDIT = {new_credit} WHERE USER_ID = {user_id};"
+        print(f"Query generated:\t{query}")
+        insert_db(query)
+
+    query = f"SELECT * FROM USERS WHERE USER_ID = {user_id};"
+    user_info = fetch_db(query)     # (ID,USERNAME, EMAIL, PASSWORD, CREDIT)
+
+    return render_template("profile.html", page_type="Profile", user_info=user_info[0])
 
 
 #TODO
@@ -217,7 +251,7 @@ def signup_page():
 
 
 #todo fix difference between gte request to the page and results not found
-@app.route("/search/", methods=['GET'])
+@app.route("/search/")
 def search_page():
 
     search_string = request.args.get("search_text", default="")
@@ -258,7 +292,7 @@ def search_page():
     return render_template("search.html", page_type="Search", search=search_string, element_list=element_list)
 
 
-@app.route("/about/", methods=['GET'])
+@app.route("/about/")
 def about_page():
     return render_template("about.html", page_type="About")
 
