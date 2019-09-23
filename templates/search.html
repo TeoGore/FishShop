@@ -53,28 +53,29 @@
 
     <!-- table fish: (ID, NAME, PRICE, WEIGHT, LENGTH, SEA, DESCRIPTION, IMAGE_URL)-->
     <div class="search-results">
-        {% if element_list %}
+        {% if has_searched %}
             {% if element_list|length %}
-                <h3>Results for: "{{ search }}"</h3>
-                {% for fish in element_list %}
-                    <a href="/product/?fish_id={{ fish[0] }}">
-                        <div class="search-result">
-                                <img src="{{ fish[-1] }}" alt="{{ fish[1] }}" class="product-img">
-                                <h4>{{ fish[1] }}</h4>  <!-- name, sea, price-->
-                                <p>{{ fish[5] }}</p>
-                                <p class="price">{{ fish[2] }} €</p>
-                        </div>
-                    </a>
-                {% endfor %}
-            {% else %}
-                <div class="no-result">
-                    Sorry, no results found for "{{ search }}". Try again!
-                </div>
-            {% endif %}
+                    <h3>Results for: "{{ search }}"</h3>
+                    {% for fish in element_list %}
+                        <a href="/product/?fish_id={{ fish[0] }}">
+                            <div class="search-result">
+                                    <img src="{{ fish[-1] }}" alt="{{ fish[1] }}" class="product-img">
+                                    <h4>{{ fish[1] }}</h4>  <!-- name, sea, price-->
+                                    <p>{{ fish[5] }}</p>
+                                    <p class="price">{{ fish[2] }} €</p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-result">
+                        Sorry, no results found for "{{ search }}". Try again!
+                    </div>
+                {% endif %}
         {% else %}
             <div class="no-result">
             </div>
         {% endif %}
+        <div class="endspace"></div>
     </div>
 
 {% endblock %}

@@ -1,7 +1,6 @@
 .profile {
     position: relative;
-    top:4em;
-    left: 50em;
+    left: 30em;
     text-align:center;
     display:block;
     color:#0c576d;
@@ -20,14 +19,14 @@
 }
 
 h2, h3, h4 {
-    margin: 0px 0px 0px 2em;
+    margin: 0px 0px 0px 3em;
     height:50px;
 }
 
 .credit {
     position: absolute;
     width:400px;
-    margin: 0px 0px 0px 3em;
+    margin: 0px 0px 0px 4em;
 }
 
 em, .money {
@@ -36,7 +35,7 @@ em, .money {
     font-size:larger;
 }
 
-form {
+main form {
     margin-top:3em;
     height: 30px;
 }

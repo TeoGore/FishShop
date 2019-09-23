@@ -61,17 +61,14 @@ div.nav-right img{
     bottom:20px;
 }
 
-.aside {
-    background-color: #0c576d;
-}
-
 .aside_fast_search {
+    background-color: #0c576d;
     color: #f2f2f2;
     position: fixed;
     top: 22%;
     border-radius: 0px 30px 40px 0px;
-    max-width:15%;
-    max-height:40%;
+    max-width:25%;
+    max-height:55%;
 }
 
 li.fast-search-element {

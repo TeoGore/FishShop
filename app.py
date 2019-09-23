@@ -5,15 +5,8 @@ from functools import wraps
 import secrets
 import random
 
-#TODO le query al db sembrano essere case insensitive, forse è perchè l'imac lo è, verificare su macbook
-
-#todo resize buttons to same length in fast search bar (and fix their URL) (and add some of them)
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
-
-#todo fixare su macbook pro la lunghezza a fine pagina della ricerca
-
-#creare pagine: prodotto, carrello, profilo utente
-#creare root per il logout
+#todo creare root per il logout
 
 
 '''
@@ -81,7 +74,7 @@ def page_not_found(error):
     return render_template("404.html", page_type='500', error=error)
 '''
 
-
+#todo
 @app.route("/")
 def homepage():
     query = "SELECT * FROM FISHES;"
@@ -250,15 +243,19 @@ def signup_page():
     return render_template("registration.html", page_type="Sign Up")
 
 
-#todo fix difference between gte request to the page and results not found
 @app.route("/search/")
 def search_page():
+
+    has_searched = False
+    shuffle = False
 
     search_string = request.args.get("search_text", default="")
     search_type = request.args.get("search_type", default="")  # all, fish, sea
     maxprice = request.args.get("price-maxval", default=5000.00)  # (5, 5000)
     order = request.args.get("search-order", default="")  # random, low-price, high-price, fish, sea
-    shuffle = False
+
+    if len(request.args) > 0:
+        has_searched = True
 
     if search_type == "fish":
         search = "NAME LIKE '%" + search_string + "%'"
@@ -284,12 +281,11 @@ def search_page():
     query = f"SELECT * FROM FISHES WHERE ({search}{price_string}){order_string};"
     print(f"Query generated (shuffle:{shuffle}):\n{query}")
 
-    #query = "SELECT * FROM FISHES"        # test for all results
     element_list = fetch_db(query)
     if shuffle:
         random.shuffle(element_list)
 
-    return render_template("search.html", page_type="Search", search=search_string, element_list=element_list)
+    return render_template("search.html", page_type="Search", has_searched=has_searched, search=search_string, element_list=element_list)
 
 
 @app.route("/about/")
