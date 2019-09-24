@@ -1,6 +1,6 @@
 function needLogin(login){
 	if (!login){
-		alert("You need to sign in first!!!");
+		alert("You need to sign in first !!!");
 		window.location.href = "login.html";
 	}
 }

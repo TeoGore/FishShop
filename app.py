@@ -8,8 +8,9 @@ import random
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
 #todo mettere tweak su: logo e immagine utente nel template base, su immagine utente nella pagina profilo e sul logo nella pagin about
 #todo JS for profile, cart (per ora su profile non metto nulla)
-
-#fare andare il delete e il buy button nella pagina cart
+#todo rifare css del cart (sia quando è vuoto, sia pieno)
+#todo fare funzionare js per calcolare totale in carrello
+#todo mettere animazione al bottone nella pagina profilo per fare soldi
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
@@ -72,7 +73,6 @@ def page_not_found(error):
     return render_template("404.html", page_type='500', error=error, login=login)
 
 
-#todo
 @app.route("/")
 def homepage():
     login = check_login(session)
@@ -143,7 +143,6 @@ def signin_page():
     return render_template("login.html", page_type="Sign In", login=(False, 0, ""))
 
 
-# todo create logic
 @app.route('/signout/')
 def signout_page():
     session.clear()
@@ -246,7 +245,6 @@ def retrieve_fishes(element_list):
     return result
 
 
-#TODO handle with fish id removing or payment
 @app.route("/shopping_cart/")
 def shopping_cart():
     login = check_login(session)
@@ -271,20 +269,33 @@ def shopping_cart():
                 query = f"UPDATE CART SET QUANTITY = {str(new_quantity)} WHERE USER = {str(user_id)} AND FISH = {str(fish_id)};"
                 insert_db(query)
 
-
         query = f"SELECT * FROM CART WHERE USER = {str(user_id)};"
         element_list = fetch_db(query)
-
         element_list = retrieve_fishes(element_list)   # now is (fish_id, fish_name, price, description, img_url, qta)
-        return render_template("cart.html", page_type="Cart", login=login, element_list=element_list)
+
+        query = f"SELECT * FROM USERS WHERE USER_ID = {str(user_id)};"
+        user_info = fetch_db(query)
+
+        return render_template("cart.html", page_type="Cart", login=login, element_list=element_list, user_credit=user_info[0][-1])
     else:
         # user not logged, return an error
         return redirect(url_for('signin_page', page_type="Sign In", login=login))
 
 
-def delete_element(user_id, fish_id):
+@app.route('/delete_item/')
+def delete_element():
+    login = check_login(session)
+    user_id = login[1]
+    fish_id = request.args.get("fish_id", default=0)
+
     query = f"DELETE FROM CART WHERE USER = {str(user_id)} AND FISH = {str(fish_id)};"
     insert_db(query)
+
+    query = f"SELECT * FROM CART WHERE USER = {str(user_id)};"
+    element_list = fetch_db(query)
+    element_list = retrieve_fishes(element_list)
+
+    return redirect(url_for("shopping_cart", page_type="Cart", login=login, element_list=element_list))
 
 
 def fetch_total_amount(user_id):
@@ -310,8 +321,7 @@ def update_user_cart(user_id):
     query = f"DELETE FROM CART WHERE USER = {str(user_id)};"
     insert_db(query)
 
-#todo fix js fnction to calculate total
-#TODO create logic for delete button (function delete_element() already written, is the logic for the DB)
+
 @app.route("/payment/")
 def payment():
     login = check_login(session)
@@ -320,16 +330,14 @@ def payment():
     query = f"SELECT * FROM USERS WHERE USER_ID = {user_id};"
     user_info = fetch_db(query)
 
-    #todo remove +20 (only for testing not enough money logic)
-    total = fetch_total_amount(user_id) + 20.0
+    total = fetch_total_amount(user_id)
+    user_credit = user_info[0][-1]
 
-    if enough_money(user_info[0][-1], total):
-        make_payment(user_id, user_info[0][-1], total)
+    if enough_money(user_credit, total):
+        make_payment(user_id, user_credit, total)
         update_user_cart(user_id)
         return redirect(url_for("homepage", page_type="Home", login=login))
     else:
-        #todo create the error with JS
-        #need more money
         return redirect(url_for("profile_page", page_type="Profile", login=login, user_info=user_info[0]))
 
 

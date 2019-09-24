@@ -54,7 +54,7 @@ function checkForm(login){
         if( exists(qt) && integerNumber(qt) ){
             document.getElementsByClassName('cart-button')[0].click();
         }else{
-            alert("You MUST provide a valid quantity (integer)!!!\n");
+            alert("You MUST provide a valid quantity (integer) !!!\n");
         }
     }
 }
