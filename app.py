@@ -164,7 +164,6 @@ def profile_page():
         new_credit = round(user_info[4] + amount, 2)
         #update DB
         query = f"UPDATE USERS SET CREDIT = {new_credit} WHERE USER_ID = {user_id};"
-        print(f"Query generated:\t{query}")
         insert_db(query)
 
     query = f"SELECT * FROM USERS WHERE USER_ID = {user_id};"
@@ -210,8 +209,6 @@ def search_page():
         shuffle = True
 
     query = f"SELECT * FROM FISHES WHERE ({search}{price_string}){order_string};"
-    print(f"Query generated (shuffle:{shuffle}):\n{query}")
-
     element_list = fetch_db(query)
     if shuffle:
         random.shuffle(element_list)
@@ -257,15 +254,15 @@ def shopping_cart():
     if login[0]:
         user_id = login[1]
 
-        quantity = request.args.get("quantity", type=int)
-        fish_id = request.args.get("fish_id", default=1)
+        quantity = request.args.get("quantity", type=int, default=0)
+        fish_id = request.args.get("fish_id", default=0)
 
-        if quantity is not None:
+        if quantity > 0 and int(fish_id) > 0:
             query = f"SELECT * FROM CART WHERE USER = {str(user_id)} AND FISH = {str(fish_id)};"
             element_list = fetch_db(query)
             if len(element_list) == 0:
                 # need new entry
-                query = f"INSERT INTO CART VALUES ({str(user_id)}, {str(fish_id)}, {quantity});"
+                query = f"INSERT INTO CART VALUES ({str(user_id)}, {str(fish_id)}, {str(quantity)});"
                 insert_db(query)
             else:
                 # entry already exists, sum quantity to the pre-existing
@@ -282,7 +279,6 @@ def shopping_cart():
         return render_template("cart.html", page_type="Cart", login=login, element_list=element_list)
     else:
         # user not logged, return an error
-        err = "Not Logged in!"
         return redirect(url_for('signin_page', page_type="Sign In", login=login))
 
 
