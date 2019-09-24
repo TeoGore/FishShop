@@ -3,10 +3,29 @@
 {% block head %}
     {{ super() }}
     <link href="/static/css/cart.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/cart.js">
+
+    function calculateTotal(){
+    var quantity = document.getElementsByClassName("quantity");
+    var products = document.getElementsByClassName("prod-price");
+    var total = 0.00;
+
+    for (var i = 0; i < products.length; i++) {
+        if (parseFloat(products[i].value) && parseInt(quantity[i].value)){
+            total += parseInt(quantity[i].value)*parseFloat(products[i].value);
+        }
+    }
+    document.getElementById('total-price').innerHTML = total + ' €';
+}
+        window.onload = function (){
+            calculateTotal();
+        }
+    </script>
 {% endblock %}
 
 {% block body %}
     {{ super() }}
+
     <div class="shopping-cart">
         {% for fish in element_list %}
             <!-- (fish_id, fish_name, price, description, img_url, qta)-->
@@ -18,7 +37,10 @@
                         <p>{{ fish[3] }}</p>
                     </div>
                     <div class="price">
-                        <p>{{ fish[5] }} X {{ fish[2] }}€</p>
+                        <label for="quantity">Qt: </label>
+                        <input type="number" name="quantity" id="quantity" value="{{ fish[5] }}" class="quantity" readonly>
+                        <label for="prod-price">€ </label>
+                        <input type="number" name="prod-price" id="prod-price" value="{{ fish[2] }}" class="prod-price" readonly>
                         <input type="submit" name="delete-button" value="Delete" class="fast-search-button">
                         <input type="hidden" name="fish_id" value="{{ fish[0] }}">
                     </div>
@@ -29,9 +51,8 @@
 
         <div class="pay">
             Total:
-            <!-- todo mettere form che manda a una root che fa pagare e cancella le istanze dalla table CART (o se non ci sono soldi rimanda con un errore a questa pagina)-->
             <form  method="get" action="/payment/">
-                <div class="total-price">1234.5 €</div>
+                <div class="total-price" id="total-price">0.0 €</div>
                 <input type="submit" name="buy-button" value="Buy" class="fast-search-button">
             </form>
         </div>

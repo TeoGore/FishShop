@@ -3,6 +3,7 @@
 {% block head %}
     {{ super() }}
     <link href="/static/css/product.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/product.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -13,8 +14,8 @@
                 <h1>{{ fish[1] }}</h1>
                 <h4>Sea: {{ fish[5] }}</h4>
                 <ul>
-                    <li>Length: {{ fish[4] }}</li>
-                    <li>Weight: {{ fish[3] }}</li>
+                    <li>Length: {{ fish[4] }} m</li>
+                    <li>Weight: {{ fish[3] }} Kg</li>
                 </ul>
 
                 <h2>{{ fish[2] }} €</h2>
@@ -24,7 +25,11 @@
                 <form method="get" action="/shopping_cart/">
                     <label for="quantity">Quantity: </label>
                     <input type="number" name="quantity" id="quantity" min="1" value="1" class="qt-input">
-                    <input type="submit" name="buy-button" value="Add to Cart!" class="cart-button">
+                    {% if login[0] %}
+                    <input type="submit" name="buy-button" value="Add to Cart!" class="cart-button" onclick="checkForm(true);">
+                    {% else %}
+                    <input type="submit" name="buy-button" value="Add to Cart!" class="cart-button" onclick="checkForm(false);">
+                    {% endif %}
                     <input type="hidden" name="fish_id" value="{{ fish[0] }}">
                 </form>
             </div>

@@ -85,3 +85,20 @@ div.price .fast-search-button{
 .total-price {
     padding-bottom:1em;
 }
+
+
+.quantity{
+    text-align:center;
+    font-size:larger;
+    color:#0c576d;
+    background-color: transparent;
+    border:transparent;
+}
+
+.prod-price {
+    text-align:center;
+    font-size:larger;
+    color:#0c576d;
+    background-color: transparent;
+    border:transparent;
+}

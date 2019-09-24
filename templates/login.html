@@ -3,10 +3,10 @@
 {% block head %}
     {{ super() }}
     <link href="/static/css/login.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/login.js"></script>
 {% endblock %}
 
 {% block body %}
-
     <div class="sign-form">
         <form method="Post" action="/signin/" >
             <label for="username">Username: </label>
@@ -15,7 +15,7 @@
             <label for="password">Password: </label>
             <input type="password" class="sign-input" name="password" id="password" placeholder="Password" required>
 
-            <input type="submit" value="Sign In" name="signin" class="sign-button">
+            <input type="submit" value="Sign In" name="signin" class="sign-button" onclick="checkForm();">
 
         </form>
 

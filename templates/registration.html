@@ -3,9 +3,14 @@
 {% block head %}
     {{ super() }}
     <link href="/static/css/login.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/registration.js"></script>
 {% endblock %}
 
 {% block body %}
+    {% if existing_user %}
+        <div class="existing-user-error">User already exists! Try Again!</div>
+    {% endif %}
+
     <div class="sign-form">
         <form method="Post" action="/signup/">
             <label for="username">Username: </label>
@@ -18,16 +23,15 @@
             <input type="password" class="sign-input" name="password" id="password" placeholder="Password" required>
 
             <label for="password">Repeat Password: </label>
-            <input type="password" class="sign-input" name="password_repeated" id="password_repeated" placeholder="Repeat Password" required>
+            <input type="password" class="sign-input" name="password_repeated" id="password_repeated" placeholder="Repeat Password" onchange="checkPasswords();" required>
+            <div id="password-error"></div>
 
-            <!-- verificare uguaglianza password con JS-->
-
-            <input type="submit" value="Sign Up" name="signup" class="sign-button">
+            <input type="submit" value="Sign Up" name="signup" class="sign-button" onclick="checkForm();">
 
         </form>
         <p>
             Already have an account? <a href="/signin/">Sign In!</a>
         </p>
     </div>
-{% endblock %}
 
+{% endblock %}
