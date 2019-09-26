@@ -84,8 +84,33 @@ div.price .fast-search-button{
 
 .total-price {
     padding-bottom:1em;
+    max-width: 100%;
+    width: 300px;
 }
 
+.quantity-div{
+   margin:0px;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[name=quantity]{
+    position:relative;
+    top:-18px;
+    height:15px;
+}
+
+input[name=prod-price] {
+    position:relative;
+    top:-18px;
+    height:15px;
+}
+
+.price-div {
+   margin:0px;
+}
 
 .quantity{
     text-align:center;
@@ -104,14 +129,17 @@ div.price .fast-search-button{
 }
 
 .void-cart {
-    width:60em;
+    position:relative;
+    top:10px;
+    left:12.5em;
+    width:25em;
     text-align:center;
     font-size:xx-large;
     color:#0c576d;
 }
 
 .search-button {
-    width:10em;
+    width:8em;
     height:2em;
     font-size:50px;
     margin: 1em 0px 10px 0px;

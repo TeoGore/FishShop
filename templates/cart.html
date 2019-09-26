@@ -21,10 +21,12 @@
                             <p>{{ fish[3] }}</p>
                         </div>
                         <div class="price">
-                            <label for="quantity">Qt: </label>
+                            <div class="quantity-div">Qt:
                             <input type="number" name="quantity" id="quantity" value="{{ fish[5] }}" class="quantity" readonly>
-                            <label for="prod-price">€ </label>
-                            <input type="number" name="prod-price" id="prod-price" value="{{ fish[2] }}" class="prod-price" readonly>
+                            </div>
+                            <div class="price-div">€
+                                <input type="number" name="prod-price" id="prod-price" value="{{ fish[2] }}" class="prod-price" readonly>
+                            </div>
                             <input type="submit" name="delete-button" value="Delete" class="fast-search-button">
                             <input type="hidden" name="fish_id" value="{{ fish[0] }}">
                         </div>
@@ -36,7 +38,7 @@
             <div class="pay">
                 Total:
                 <form method="get" action="/payment/">
-                    <div class="total-price" id="total-price">0.0 €</div>
+                    <div class="total-price" id="total-price">0.00 €</div>
                     <input type="submit" name="buy-button" id="buy-button" value="Buy" class="fast-search-button" onclick="enoughMoney({{ user_credit }});">
                 </form>
             </div>
@@ -51,7 +53,6 @@
                 <input type="submit" name="search-button" value="Shop Now" class="fast-search-button search-button">
             </form>
         </div>
-
 
     {% endif %}
 

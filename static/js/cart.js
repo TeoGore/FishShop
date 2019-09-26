@@ -8,6 +8,7 @@ function calculateTotal(){
             total += parseInt(quantity[i].value)*parseFloat(products[i].value);
         }
     }
+    total = Number((total).toFixed(2));
     return total;
 }
 

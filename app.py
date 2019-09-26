@@ -7,10 +7,9 @@ import random
 
 #todo togliere sfondo bianco al logo e alla altra immagine di errore 404
 #todo mettere tweak su: logo e immagine utente nel template base, su immagine utente nella pagina profilo e sul logo nella pagin about
-#todo JS for profile, cart (per ora su profile non metto nulla)
-#todo rifare css del cart (sia quando è vuoto, sia pieno)
-#todo fare funzionare js per calcolare totale in carrello
-#todo mettere animazione al bottone nella pagina profilo per fare soldi
+
+#todo rifare css del cart quando è pieno
+#todo mettere animazione al bottone nella pagina profilo per fare soldi (vedere se fare con JS)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
