@@ -13,7 +13,6 @@ def generate_random_sea():
     return random.choice(seas)
 
 
-# todo create better descriptions
 def generate_description(name, price, weight, length, sea):
     if length >= 100:
         leng = 'long'
